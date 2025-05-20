@@ -14,29 +14,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js (if using package.json)
+      - name: Set up Node.js (for reading package.json)
         uses: actions/setup-node@v4
         with:
-          node-version: "18" # Adjust as needed
+          node-version: "18"
 
       - name: Read version from package.json
-        if: ${{ !cancelled() }}
         id: get_version_node
         run: |
           VERSION=$(jq -r '.version' package.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # OR: Read from pyproject.toml if using Python
       - name: Read version from pyproject.toml
-        if: ${{ !cancelled() && steps.get_version_node.outputs.version == '' }}
+        if: ${{ steps.get_version_node.outputs.version == '' }}
         id: get_version_py
         run: |
           VERSION=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Git tag
         uses: mathieudutour/github-tag-action@v6.1
         with:
           custom_tag: ${{ env.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
