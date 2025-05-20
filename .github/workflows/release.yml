@@ -23,7 +23,6 @@ jobs:
         id: get_version_node
         run: |
           VERSION=$(jq -r '.version' package.json)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Read version from pyproject.toml
@@ -31,12 +30,11 @@ jobs:
         id: get_version_py
         run: |
           VERSION=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create Git tag
         uses: mathieudutour/github-tag-action@v6.1
         with:
-          custom_tag: ${{ env.VERSION }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.get_version_node.outputs.version || steps.get_version_py.outputs.version }}
+          tag_prefix: ""  # Optional: remove if you want "v1.0.0" style tags
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Optional: remove if you want to use GITHUB_TOKEN
