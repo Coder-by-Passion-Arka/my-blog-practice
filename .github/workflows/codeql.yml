@@ -1,19 +1,21 @@
 name: "CodeQL"
 
 on: 
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-    analyze:
-        name: Analyze code
-        runs-on: ubuntu-latest
+  analyze:
+    name: Analyze code
+    runs-on: ubuntu-latest
 
-        steps: 
-            - uses: actions/checkout@v3
-            - uses: github/codeql-action/init@v2
-              with:
-                languages: javascript typescript python html css
-            - uses: github/codeql-action/analyze@v2
+    steps: 
+      - uses: actions/checkout@v3
+
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: [javascript, typescript, python, html, css]
+
+      - uses: github/codeql-action/analyze@v3
