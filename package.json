@@ -1,0 +1,12 @@
+{
+    "name": "minimal-ci-demo",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "echo 'Building the project...'",
+        "test": "echo 'Running tests...'",
+        "deploy": "echo 'Deploying the project...'",
+        "ci": "npm run build && npm run test && npm run deploy"
+    },
+    "devDependencies": {},
+    "dependencies": {}
+}

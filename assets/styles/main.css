@@ -1,40 +1,40 @@
 .subscribe-button {
-    background-color: #2ecc71;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background-color: #2ecc71;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .subscribe-button:hover {
-    background-color: #27ae60;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background-color: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .subscribe-button:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
-    .subscribe-button {
-        background-color: #1abc9c;
-        color: #ffffff;
-        box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-    }
+  .subscribe-button {
+    background-color: #1abc9c;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  }
 
-    .subscribe-button:hover {
-        background-color: #16a085;
-        box-shadow: 0 4px 8px rgba(255,255,255,0.1);
-    }
+  .subscribe-button:hover {
+    background-color: #16a085;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
 
-    .subscribe-button:active {
-        box-shadow: 0 1px 3px rgba(255,255,255,0.1);
-    
+  .subscribe-button:active {
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+  }
 }

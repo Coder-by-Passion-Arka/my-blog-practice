@@ -1,36 +1,60 @@
 name: CI Workflow
 
 on: 
-    push:
-    pull_request:
+  push:
+  pull_request:
 
 jobs: 
-    test:
-# The job will run on all platforms
-# and will run the same steps on each platform
-        strategy:
-            matrix:
-                runs-on:
-                    - ubuntu-latest
-                    - windows-latest
-                    - macos-latest
-        runs-on: ${{ matrix.runs-on }}
-# This part of the code is used to define the steps that the CI workflow will run
-        steps: 
-            - uses: actions/checkout@v3
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: '20'
-            - run: npm install
-            - run: npm run build
-            - run : npm test
+  test:
+    strategy:
+      matrix:
+        runs-on:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+    runs-on: ${{ matrix.runs-on }}
+    steps: 
+      - uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-# on: push/pull_request → Runs the workflow on every push or PR.
+      - name: Install dependencies
+        run: npm install
 
-# checkout → Downloads your repo for the GitHub runner.
+      - name: Run build (if script exists)
+        run: |
+          if npm run | grep -q "build"; then
+            echo "Build script found. Running build..."
+            npm run build
+          else
+            echo "No build script found. Skipping build."
+          fi
 
-# setup-node → Sets up Node.js.
-
-# npm install & test → Installs dependencies and runs your tests.
+      - name: Run tests
+        run: npm test
+# This workflow will run on every push and pull request to the repository.
+# It will check out the code, set up Node.js, install dependencies, run the build script if it exists, and then run the tests.
+# The workflow will run on three different operating systems: Ubuntu, Windows, and macOS.
+# The matrix strategy allows you to run the same job on multiple operating systems.
+# The `runs-on` key specifies the operating system for the job.
+# The `steps` key contains a list of steps to be executed in the job.
+# The `uses` key specifies an action to be used in the workflow.
+# The `actions/checkout@v3` action checks out the code from the repository.
+# The `actions/setup-node@v3` action sets up Node.js.
+# The `node-version` key specifies the version of Node.js to use.
+# The `npm install` command installs dependencies.
+# The `npm run build` command runs the build script if it exists.
+# The `npm test` command runs the tests.
+# The `if` statement checks if the build script exists before running it.
+# The `grep -q` command checks if the output of `npm run` contains the string "build".
+# The `echo` command prints a message to the console.
+# The `-q` option for `grep` suppresses the output, so it only returns the exit status.
+# The `npm run` command lists all available scripts in the package.json file.
+# The `if` statement checks if the build script exists before running it.
+# The `echo` command prints a message to the console.
+# The `-q` option for `grep` suppresses the output, so it only returns the exit status.
+# The `npm run` command lists all available scripts in the package.json file.
+# The `if` statement checks if the build script exists before running it.
