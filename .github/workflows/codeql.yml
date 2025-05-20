@@ -16,6 +16,6 @@ jobs:
 
       - uses: github/codeql-action/init@v3
         with:
-          languages: 'javascript,typescript,python,html,css'
+          languages: 'javascript,typescript,python'
 
       - uses: github/codeql-action/analyze@v3
