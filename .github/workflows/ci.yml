@@ -1,0 +1,36 @@
+name: CI Workflow
+
+on: 
+    push:
+    pull_request:
+
+jobs: 
+    test:
+# The job will run on all platforms
+# and will run the same steps on each platform
+        strategy:
+            matrix:
+                runs-on:
+                    - ubuntu-latest
+                    - windows-latest
+                    - macos-latest
+        runs-on: ${{ matrix.runs-on }}
+# This part of the code is used to define the steps that the CI workflow will run
+        steps: 
+            - uses: actions/checkout@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '20'
+            - run: npm install
+            - run: npm run build
+            - run : npm test
+
+
+# on: push/pull_request → Runs the workflow on every push or PR.
+
+# checkout → Downloads your repo for the GitHub runner.
+
+# setup-node → Sets up Node.js.
+
+# npm install & test → Installs dependencies and runs your tests.
